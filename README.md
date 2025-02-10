@@ -9,6 +9,6 @@ People who want to minimize food waste by using available ingredients.
 People with limited time on their hands.
 
 # Key Features
-Ingredient Input: Users can input ingredients they have on hand.
-Recipe Search: The website will suggest recipes based on the available ingredients.
-Recipe Details: Each recipe will include ingredients, instructions, and preparation time.
+- Ingredient Input: Users can input ingredients they have on hand.
+- Recipe Search: The website will suggest recipes based on the available ingredients.
+- Recipe Details: Each recipe will include ingredients, instructions, and preparation time.
