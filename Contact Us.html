@@ -14,6 +14,41 @@
             align-items: center;
             height: 100vh;
         }
+        .sidebar {
+            width: 60px;
+            background-color: #D16200;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+        .icon-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin: 15px 0;
+            display: block;
+        }
+        .exit-icon {
+            width: 30px;
+            height: 30px;
+            margin-top: auto;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .logo {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 20px;
+        }
         .container {
             background-color: #333;
             padding: 20px;
@@ -50,9 +85,20 @@
             margin-top: 10px;
             font-weight: bold;
         }
+    
     </style>
 </head>
 <body>
+    <div class="sidebar">
+        <img src="../hapaglogo.jpg" class="logo">
+        <div class="icon-container">
+            <img src="../icons/home.png" class="icon">
+            <img src="../icons/person.png" class="icon">
+            <img src="../icons/recipe.png" class="icon">
+            <img src="../icons/phone.png" class="icon">
+        </div>
+        <img src="../icons/exit.png" alt="Logout" class="exit-icon">
+    </div>
     <div class="container">
         <h2>Contact</h2>
         <p>Encountered a bug? Contact us!</p>
