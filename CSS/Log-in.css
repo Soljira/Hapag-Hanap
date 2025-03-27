@@ -1,0 +1,172 @@
+@font-face {
+font-family: 'Figtree';
+src: url('fonts/Figtree-Light.woff2') format('woff2'),
+     url('fonts/Figtree-Light.woff') format('woff');
+font-weight: 300; /* Light */
+font-style: normal;
+}
+
+@font-face {
+font-family: 'Figtree';
+src: url('fonts/Figtree-LightItalic.woff2') format('woff2'),
+     url('fonts/Figtree-LightItalic.woff') format('woff');
+font-weight: 300; /* Light */
+font-style: italic;
+}
+
+@font-face {
+font-family: 'Poppins';
+src: url('fonts/Poppins-Regular.woff2') format('woff2'),
+     url('fonts/Poppins-Regular.woff') format('woff');
+font-weight: 400;
+}
+
+@font-face {
+font-family: 'Poppins';
+src: url('fonts/Poppins-Bold.woff2') format('woff2'),
+     url('fonts/Poppins-Bold.woff') format('woff');
+font-weight: 700;
+}
+
+
+
+
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+    body, html {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #222;
+    }
+    .container {
+        display: flex;
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .image-section {
+        flex: 1.2;
+        background: url('StartpageBG.jpg') center/cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        padding: 20px;
+    }
+
+    .image-section h1 {
+        font-family: 'Figtree', sans-serif;
+        font-size: 4rem;
+        max-width: 80%;
+    }
+
+    .form-section {
+        flex: 1.7;
+        background: #222;
+        padding: 6vw;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-width: 450px;
+        max-width: 600px;
+
+    }
+
+    .form-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    form {
+        text-align: left;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items:  flex-start;
+    }
+
+    .title-container {
+        text-align: left;
+        width: 100%;
+        margin-top: 60px;
+    }
+
+    .form-section img {
+        width: 170px;
+        margin-bottom:10px;
+        margin-top: -100px;
+    }
+
+    .form-section h2 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 2rem;
+        font-weight: normal;
+        margin-bottom: 10px;
+    }
+
+    .form-section a {
+        font-family: 'Poppins', sans-serif;
+        color: orange;
+        text-decoration: none;
+    }
+
+    .form-section p {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2rem;
+    }
+
+    .form-group {
+        width: 100%;
+        margin: 15px 0;
+    }
+
+    .form-container {
+        width: 100%;
+        max-width: 700px;
+    }
+
+    .form-group input {
+        font-family: 'Poppins', sans-serif;
+        width: 100%;
+        max-width: 700px;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        background: #444;
+        color: white;
+        font-size: 1.6rem;
+    }
+    .form-group::placeholder {
+        font-family: 'Poppins', sans-serif;
+        font-weight: normal;
+        color: #444;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 10px;
+        background:#D16200;
+        border: none;
+        border-radius: 5px;
+        color: white;
+        font-size: 1.8rem;
+        cursor: pointer;
+        margin-top: 40px;
+    }
+
+    .btn:hover {
+        background: darkorange;
+    }
