@@ -1,0 +1,163 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #222;
+    color: white;
+    display: flex;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 60px;
+    background-color: #D16200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    height: 100vh;
+
+}
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.icon {
+    width: 20px;
+    height:20px;
+    margin: 15px 0;
+    display: block;
+}
+
+.exit-icon {
+    width: 20px;
+    height: 20px;
+    margin-top: auto;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+
+/* Main Content */
+.content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+/* Search Bar */
+.search-bar {
+    width: 100%;
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.search-bar input {
+    width: 600px;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    font-size: 1rem;
+}
+
+/* Ingredients and Selected Ingredients Container */
+.main-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1000px;
+}
+
+/* Ingredients Section */
+.ingredients-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 80%;
+    max-width: 600px;
+}
+
+.ingredients-list {
+    background: black;
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%;
+    min-height: 350px;
+    font-size: 1.8rem;
+}
+
+.list-box {
+    max-height: 250px;
+    overflow-y: auto;
+
+}
+
+.ingredients-list label{
+    display: flex;
+    font-size: 1.2rem;
+}
+
+.ingredients-list h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+/* Recipe Section */
+.recipe-section {
+    position: relative;
+    top: -100px;
+    left: 400px; 
+    text-align: center;
+    width: auto; 
+}
+
+
+.recipe-section h2 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.recipe-section p {
+    font-size: 1.5rem;
+    text-align: center;
+    max-width: 700px;
+}
+
+/* Button */
+.btn {
+    background: #FFC107;
+    border: none;
+    padding: 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 8px;
+    margin-top: 20px;
+    width: 600px;
+}
+
+.btn:hover {
+    background: #E0A800;
+}
