@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saved Recipes</title>
+    <title>Edit Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-         body {
+        body {
             font-family: Arial, sans-serif;
             background-color: #222;
             color: white;
@@ -23,33 +23,68 @@
             text-align: center;
             position: relative;
         }
+        .profile-container {
+            position: relative;
+            display: inline-block;
+        }
         .profile-pic {
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             border: 3px solid white;
-        
         }
-        .edit-icon {
-            position: absolute;
-            top: 10px;
-            left: 60%;
-            background: white;
-            padding: 8px;
-            border-radius: 50%;
-            color: black;
+        .profile-name {
+            border: 3px solid white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            display: inline-block;
             font-size: 18px;
-            cursor: pointer;
-        }
-        .email {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
             margin-top: 10px;
         }
-        .email i {
-            font-size: 18px;
+        .followers {
+            font-size: 14px;
+            margin: 8px 0;
+        }
+        .bio {
+            border: 2px solid white;
+            padding: 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: inline-block;
+            max-width: 80%;
+        }
+        .email-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 2px solid white;
+            padding: 8px 12px;
+            border-radius: 15px;
+            color: white;
+            margin: 15px auto;
+            width: 80%;
+        }
+        .email-box i {
+            font-size: 16px;
+        }
+        .email-box .delete-icon {
+            color: red;
+            cursor: pointer;
+        }
+        .add-icon {
+            display: inline-block;
+            border: 2px solid white;
+            padding: 10px;
+            border-radius: 50%;
+            font-size: 20px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        /* Recipes Section */
+        .recipes-container {
+            flex: 1;
+            padding: 20px;
         }
         .tabs {
             display: flex;
@@ -72,10 +107,6 @@
         .inactive {
             background-color: white;
             color: black;
-        }
-        .recipes-container {
-            flex: 1;
-            padding: 20px;
         }
         .recipe-card {
             background-color: #444;
@@ -117,21 +148,31 @@
 </head>
 <body>
     <div class="sidebar">
-        <img src="../images/pfp.png" alt="Chef Clawdia" class="profile-pic">
-        <i class="fa-solid fa-pen edit-icon"></i>
-        <h2>Chef Clawdia</h2>
-        <p>100 followers | 0 following</p>
-        <p>Just a cat who cooks when my owner isn't around.</p>
-        <div class="email">
+        <div class="profile-container">
+            <img src="../images/pfp.png" alt="Chef Clawdia" class="profile-pic">
+            <button style="position: absolute; top: 10px; right: -20px; background:  #333; color: rgb(21, 252, 0); border: none; border-radius: 50%; padding: 1px; font-size: 25px; cursor: pointer;">
+                <i class="fa-solid fa-check"></i>
+        </div>
+        <h2 class="profile-name">Chef Clawdia</h2>
+        <p class="followers">100 followers | 0 following</p>
+        <p class="bio">Just a cat who cooks when my owner isn’t around.</p>
+        
+        <div class="email-box">
             <i class="fa-solid fa-envelope"></i>
             <p>chefclawdia@gmail.com</p>
+            <i class="fa-solid fa-xmark delete-icon"></i>
         </div>
+        
+        <i class="fa-solid fa-plus add-icon"></i>
     </div>
+    
+
     <div class="recipes-container">
         <div class="tabs">
             <div class="tab active">Saved</div>
             <div class="tab inactive">Submitted Recipes</div>
         </div>
+
         <div class="recipe-card">
             <img src="../images/bananacue.png" alt="Bananacue" class="recipe-img">
             <div class="recipe-details">
@@ -140,10 +181,11 @@
                 <p>By: Panlasang Pinoy</p>
                 <p>Bananacue is term used to call fried skewered plantains cooked with brown sugar. 
                     This is a staple in the Philippines and is mostly consumed as a mid-afternoon snack.</p>
-                    <p><strong>Servings:</strong> 3 | <strong>Prep:</strong> 5 min | <strong>Cook:</strong> 7 min | <strong>Total:</strong> 12 min</p>
+                <p><strong>Servings:</strong> 3 | <strong>Prep:</strong> 5 min | <strong>Cook:</strong> 7 min | <strong>Total:</strong> 12 min</p>
             </div>
             <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </div>
+
         <div class="recipe-card">
             <img src="../images/friedtilapia.png" alt="Fried Tilapia" class="recipe-img">
             <div class="recipe-details">
