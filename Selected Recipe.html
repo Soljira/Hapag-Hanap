@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bananacue Recipe</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .recipe-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            width: 90%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        .left-section {
+            width: 60%;
+        }
+
+        .right-section {
+            width: 35%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .recipe-title {
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .star {
+            color: yellow;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .tag {
+            background: #ff6600;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 5px;
+        }
+
+        .instructions, .ingredients {
+            margin-top: 20px;
+        }
+
+        .recipe-image img {
+            width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="recipe-container">
+        <div class="left-section">
+            <h1 class="recipe-title">Bananacue <span class="star">⭐</span></h1>
+            <p class="tag">Snack</p>
+            <p>By: Panlasang Pinoy</p>
+            <p>Bananacue is term used to call fried skewered plantains cooked with brown sugar. This is a staple in the Philippines, and is mostly consumed as a mid-afternoon snack.</p>
+            <p><strong>Servings:</strong> 3 people</p>
+            <p><strong>Prep:</strong> 5 minutes</p>
+            <p><strong>Cook:</strong> 7 minutes</p>
+            <p><strong>Total:</strong> 12 minutes</p>
+
+            <div class="instructions">
+                <h2>Instructions</h2>
+                <ol>
+                    <li>Heat a cooking pot then pour-in cooking oil.</li>
+                    <li>When the oil becomes hot, deep fry the bananas for 2 minutes.</li>
+                    <li>Gradually put-in the brown sugar, adjust the heat to medium-low and continue cooking until the melted brown sugar coats the bananas.</li>
+                    <li>Remove the cooked bananas one by one and immediately skewer using a bamboo skewer.</li>
+                    <li>Let cool then serve with cold soda.</li>
+                </ol>
+            </div>
+        </div>
+        <div class="right-section">
+            <div class="recipe-image">
+                <img src="images/bananacue.png" alt="Bananacue">
+            </div>
+            <div class="ingredients">
+                <h2>Ingredients</h2>
+                <ul>
+                    <li>6 pieces banana</li>
+                    <li>2 cups brown sugar</li>
+                    <li>4 cups cooking oil</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
