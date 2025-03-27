@@ -17,22 +17,55 @@
             width: 100vw;
         }
         .sidebar {
-            width: 25%;
-            background-color: #333;
+            width: 60px;
+            background-color: #D16200;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+        .icon-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin: 15px 0;
+            display: block;
+        }
+        .exit-icon {
+            width: 30px;
+            height: 30px;
+            margin-top: auto;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .logo {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 20px;
+        }
+        .profile-section {
+            margin-left: 80px;
             padding: 20px;
             text-align: center;
-            position: relative;
         }
         .profile-pic {
-            width: 120px;
-            height: 120px;
+            width: 130px;
+            height: 130px;
             border-radius: 50%;
             border: 3px solid white;
         }
         .edit-icon {
             position: absolute;
             top: 10px;
-            left: 60%;
+            left: 20%;
             background: white;
             padding: 8px;
             border-radius: 50%;
@@ -116,6 +149,16 @@
 </head>
 <body>
     <div class="sidebar">
+        <img src="../hapaglogo.jpg" class="logo">
+        <div class="icon-container">
+            <img src="../icons/home.png" class="icon">
+            <img src="../icons/person.png" class="icon">
+            <img src="../icons/recipe.png" class="icon">
+            <img src="../icons/phone.png" class="icon">
+        </div>
+        <img src="../icons/exit.png" alt="Logout" class="exit-icon">
+    </div>
+    <div class="profile-section">
         <img src="../images/pfp.png" alt="Chef Clawdia" class="profile-pic">
         <i class="fa-solid fa-pen edit-icon"></i>
         <h2>Chef Clawdia</h2>

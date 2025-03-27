@@ -18,7 +18,7 @@
 
 .main-content {
     flex-grow: 1;
-    padding: 20px;
+    padding: 70px;
 }
 
 header {
@@ -27,7 +27,6 @@ header {
     align-items: center;
     margin-bottom: 20px;
 }
-
 .actions {
     display: flex;
     gap: 10px;
@@ -80,13 +79,13 @@ header {
 .recipe-card {
     display: flex;
     background-color: #1a1a1a;
-    border-radius: 10px;
+    border-radius: 20px;
     overflow: hidden;
     position: relative;
 }
 
 .recipe-card img {
-    width: 50%;
+    width: 40%;
     object-fit: cover;
 }
 
@@ -179,11 +178,59 @@ header {
     width: 14px;
     height: 14px;
 }
+.sidebar {
+        width: 60px;
+        background-color: #D16200;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10px;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+}
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.icon {
+    width: 20px;
+    height:20px;
+    margin: 15px 0;
+    display: block;
+}
+
+.exit-icon {
+    width: 30px;
+    height: 30px;
+    margin-top: auto;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+}
 
 
     </style>
 </head>
 <body>
+    <div class="sidebar">
+        <img src="../hapaglogo.jpg" class="logo">
+        <div class="icon-container">
+            <img src="../icons/home.png" class="icon">
+            <img src="../icons/person.png" class="icon">
+            <img src="../icons/recipe.png" class="icon">
+            <img src="../icons/phone.png" class="icon">
+        </div>
+        <img src="../icons/exit.png" alt="Logout" class="exit-icon">
+    </div>
     <div class="main-content">
         <header>
             <h1>Recipes</h1>
@@ -208,7 +255,7 @@ header {
         </header>
         <div class="recipe-grid">
             <div class="recipe-card">
-                <img src="bananacue.png" alt="Bananaque">
+                <img src="../images/bananacue.png" alt="Bananaque">
                 <div class="details">
                     <div class="header">
                         <h2>Bananacue</h2>
@@ -229,7 +276,7 @@ header {
             </div>
 
             <div class="recipe-card">
-                <img src="fried-tilapia.jpg" alt="Fried Tilapia">
+                <img src="../images/friedtilapia.png" alt="Fried Tilapia">
                 <div class="details">
                     <div class="header">
                         <h2>Fried Tilapia</h2>

@@ -17,11 +17,44 @@
             width: 100vw;
         }
         .sidebar {
-            width: 25%;
-            background-color: #333;
+            width: 60px;
+            background-color: #D16200;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 10px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+        }
+        .icon-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin: 15px 0;
+            display: block;
+        }
+        .exit-icon {
+            width: 30px;
+            height: 30px;
+            margin-top: auto;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .logo {
+            width: 40px;
+            height: 40px;
+            margin-bottom: 20px;
+        }
+        .profile-section {
+            margin-left: 80px;
             padding: 20px;
             text-align: center;
-            position: relative;
         }
         .profile-container {
             position: relative;
@@ -32,6 +65,18 @@
             height: 130px;
             border-radius: 50%;
             border: 3px solid white;
+        }
+        .verify-button {
+            position: absolute;
+            top: 10px;
+            right: -20px;
+            background: #333;
+            color: rgb(21, 252, 0);
+            border: none;
+            border-radius: 50%;
+            padding: 5px;
+            font-size: 20px;
+            cursor: pointer;
         }
         .profile-name {
             border: 3px solid white;
@@ -81,7 +126,6 @@
             margin-top: 10px;
             cursor: pointer;
         }
-        /* Recipes Section */
         .recipes-container {
             flex: 1;
             padding: 20px;
@@ -148,24 +192,36 @@
 </head>
 <body>
     <div class="sidebar">
+        <img src="../hapaglogo.jpg" class="logo">
+        <div class="icon-container">
+            <img src="../icons/home.png" class="icon">
+            <img src="../icons/person.png" class="icon">
+            <img src="../icons/recipe.png" class="icon">
+            <img src="../icons/phone.png" class="icon">
+        </div>
+        <img src="../icons/exit.png" alt="Logout" class="exit-icon">
+    </div>
+
+    <div class="profile-section">
         <div class="profile-container">
             <img src="../images/pfp.png" alt="Chef Clawdia" class="profile-pic">
-            <button style="position: absolute; top: 10px; right: -20px; background:  #333; color: rgb(21, 252, 0); border: none; border-radius: 50%; padding: 1px; font-size: 25px; cursor: pointer;">
+            <button class="verify-button">
                 <i class="fa-solid fa-check"></i>
+            </button>
         </div>
         <h2 class="profile-name">Chef Clawdia</h2>
         <p class="followers">100 followers | 0 following</p>
         <p class="bio">Just a cat who cooks when my owner isn’t around.</p>
-        
+
         <div class="email-box">
             <i class="fa-solid fa-envelope"></i>
             <p>chefclawdia@gmail.com</p>
             <i class="fa-solid fa-xmark delete-icon"></i>
         </div>
-        
+
         <i class="fa-solid fa-plus add-icon"></i>
     </div>
-    
+
 
     <div class="recipes-container">
         <div class="tabs">
@@ -179,21 +235,8 @@
                 <span class="tag">Snack</span>
                 <h3>Bananacue <span class="star">⭐</span></h3>
                 <p>By: Panlasang Pinoy</p>
-                <p>Bananacue is term used to call fried skewered plantains cooked with brown sugar. 
-                    This is a staple in the Philippines and is mostly consumed as a mid-afternoon snack.</p>
+                <p>Bananacue is term used to call fried skewered plantains cooked with brown sugar.</p>
                 <p><strong>Servings:</strong> 3 | <strong>Prep:</strong> 5 min | <strong>Cook:</strong> 7 min | <strong>Total:</strong> 12 min</p>
-            </div>
-            <i class="fa-solid fa-chevron-right arrow-icon"></i>
-        </div>
-
-        <div class="recipe-card">
-            <img src="../images/friedtilapia.png" alt="Fried Tilapia" class="recipe-img">
-            <div class="recipe-details">
-                <span class="tag" style="background:#ff4500;">Seafood</span>
-                <h3>Fried Tilapia <span class="star">⭐</span></h3>
-                <p>By: Chef Clawdia</p>
-                <p>My favorite food ever.</p>
-                <p><strong>Servings:</strong> 3 | <strong>Prep:</strong> 5 min | <strong>Cook:</strong> 15 min | <strong>Total:</strong> 20 min</p>
             </div>
             <i class="fa-solid fa-chevron-right arrow-icon"></i>
         </div>
