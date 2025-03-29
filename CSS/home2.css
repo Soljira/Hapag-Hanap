@@ -1,0 +1,218 @@
+/* ================== Global Styles ================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #1E1E1E; /* Darker background */
+    color: white;
+    display: flex;
+    height: 100vh;
+}
+
+.container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+/* ================== Sidebar ================== */
+.sidebar {
+    width: 70px;
+    background-color: #D16200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    height: 100vh;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+    margin: 15px 0;
+    display: block;
+}
+
+.exit-icon {
+    width: 25px;
+    height: 25px;
+    margin-top: auto;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+/* ================== Main Content ================== */
+.content {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    background: white;
+    border-radius: 25px;
+    padding: 10px;
+    width: 600px;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 1rem;
+    padding-left: 10px;
+}
+
+/* ================== Ingredients Section ================== */
+.main-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    gap: 20px;
+}
+
+.ingredients-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 45%;
+}
+
+.ingredients-list {
+    background: black;
+    padding: 20px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    min-height: 300px;
+    font-size: 1.5rem;
+}
+
+.list-box {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.ingredients-list h2 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.ingredients-list label {
+    display: flex;
+    font-size: 1.2rem;
+}
+
+/* ================== Button ================== */
+.btn {
+    background: #FFC107;
+    border: none;
+    padding: 18px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 12px;
+    text-align: center;
+    color: black;
+    transition: background 0.3s ease-in-out;
+    width: 100%;
+}
+
+.btn:hover {
+    background: #E0A800;
+}
+
+/* ================= Recipe Section ================= */
+.recipes-container {
+    width: 50%;
+    background: #1E1E1E;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.recipe-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
+}
+
+.recipe-card {
+    display: flex;
+    background: black;
+    border-radius: 12px;
+    padding: 15px;
+    color: white;
+    gap: 15px;
+    max-width: 100%;
+}
+
+.recipe-card img {
+    width: 200px;
+    height: 150px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.details {
+    flex-grow: 1;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.favorite {
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.tag {
+    display: inline-block;
+    background: orange;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.category-btn {
+    background: #D16200;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    font-size: 1rem;
+}
