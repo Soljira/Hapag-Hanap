@@ -29,7 +29,12 @@ if ($isApiRequest) {
         
         $selectedIngredients = $data['ingredients'] ?? [];
         $minMatch = $data['minMatch'] ?? 3;
-        
+    
+        // Validate: Require at least 3 ingredients
+        if (count($selectedIngredients) < 3) {
+            throw new Exception("At least 3 ingredients are required.");
+        }
+    
         $recipes = fetchRecipesByIngredients($pdo, $selectedIngredients, $minMatch);
 
         foreach ($recipes as &$recipe) {
