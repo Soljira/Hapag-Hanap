@@ -143,14 +143,11 @@ document.addEventListener("DOMContentLoaded", function () {
                               ? `<p class="description">${recipe.description}</p>`
                               : ""
                           }
-                          <p class="match-count">Matches ${
-                            recipe.match_count
-                          } ingredients</p>
                           <span class="arrow">❯</span>
                       </div>
                   `;
         recipeCard.addEventListener("click", () => {
-          window.location.href = `recipe-detail.php?id=${recipe.id}`;
+          window.location.href = `./recipes/selected-recipe.php?id=${recipe.id}`;
         });
         recipesContainer.appendChild(recipeCard);
       });

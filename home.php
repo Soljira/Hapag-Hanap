@@ -88,7 +88,7 @@ else {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingredient Selector</title>
+    <title>Hapag Hanap - Home</title>
     <link rel="stylesheet" href="css/home2.css">
     <script src='./js/home.js'></script>
 </head>
