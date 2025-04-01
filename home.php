@@ -1,3 +1,16 @@
+<?php
+session_start();
+if(isset($_SESSION['user'])){
+    $user = $_SESSION['user'];
+
+}else{
+    header("Location: index.php");
+    exit();
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +34,7 @@
                 <a href="#"><img src="icons/phone.png" class="icon"></a>
             </div>    
 
-            <img src="icons/exit.png" class="exit-icon">
+            <a href="logout.php" class="exit-icon"><img src="icons/exit.png" ></a>
         </div>
         
             <!-- Left content: Ingredients and search -->

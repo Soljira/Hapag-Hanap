@@ -12,3 +12,8 @@ People with limited time on their hands.
 - Ingredient Input: Users can input ingredients they have on hand.
 - Recipe Search: The website will suggest recipes based on the available ingredients.
 - Recipe Details: Each recipe will include ingredients, instructions, and preparation time.
+
+User Credentials:
+email: user1@gmail.com
+username: user1
+password: password123
