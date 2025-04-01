@@ -28,13 +28,13 @@ if(isset($_SESSION['user'])){
             <img src="hapaglogo.jpg" alt="Logo" class="logo">
 
             <div class="icon-container">
-                <a href="#"><img src="icons/home.png" class="icon"></a>
-                <a href="#"><img src="icons/person.png" class="icon"></a>
-                <a href="#"><img src="icons/recipe.png" class="icon"></a>
-                <a href="#"><img src="icons/phone.png" class="icon"></a>
+                <a href="./home.php"><img src="assets/icons/home.png" class="icon"></a>
+                <a href="./profile/profile.php"><img src="assets/icons/person.png" class="icon"></a>
+                <a href="./recipes/recipe-list.php"><img src="assets/icons/recipe.png" class="icon"></a>
+                <a href="./contact-us.php"><img src="assets/icons/phone.png" class="icon"></a>
             </div>    
 
-            <a href="logout.php" class="exit-icon"><img src="icons/exit.png" ></a>
+            <a href="logout.php" class="exit-icon"><img src="assets/icons/exit.png" ></a>
         </div>
         
             <!-- Left content: Ingredients and search -->
@@ -69,7 +69,7 @@ if(isset($_SESSION['user'])){
                             <h2>Selected Ingredients</h2>
                             <div class="list-box"></div>
                         </div>
-                                    <!-- Button -->
+                        
                         <button class="btn">What can I cook?</button>
 
                     </div>
@@ -82,7 +82,7 @@ if(isset($_SESSION['user'])){
 
                         <div class="filters">
                             <button class="category-btn">
-                               <img src="icons/Filter.png" alt="Filter Icon" class="filter-icon"> Category
+                               <img src="assets/icons/Filter.png" alt="Filter Icon" class="filter-icon"> Category
                             </button>
                             <label class="checkbox-container">
                                 <input type="checkbox" checked id="user-submitted"> 
@@ -92,7 +92,7 @@ if(isset($_SESSION['user'])){
 
                         <div class="recipe-grid">
                             <div class="recipe-card">
-                                <img src="/images/bananacue.png" alt="Bananacue">
+                                <img src="assets/images/bananacue.png" alt="Bananacue">
                                 <div class="details">
                                     <div class="header">
                                         <h2>Bananacue</h2>
@@ -114,7 +114,7 @@ if(isset($_SESSION['user'])){
                                 </div>
                             </div>
                             <div class="recipe-card">
-                                <img src="/images/turon.png" alt="Turon">
+                                <img src="assets/images/turon.png" alt="Turon">
                                 <div class="details">
                                     <div class="header">
                                         <h2>Turon</h2>

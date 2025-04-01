@@ -17,3 +17,5 @@ User Credentials:
 email: user1@gmail.com
 username: user1
 password: password123
+
+Used recipe data from https://github.com/godkingjay/Authentic-Pinoy-Recipes-App?tab=MIT-1-ov-file#readme
