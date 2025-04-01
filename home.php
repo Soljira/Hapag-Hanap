@@ -31,6 +31,13 @@ if ($isApiRequest) {
         $minMatch = $data['minMatch'] ?? 3;
         
         $recipes = fetchRecipesByIngredients($pdo, $selectedIngredients, $minMatch);
+
+        foreach ($recipes as &$recipe) {
+            if (isset($recipe['image_path'])) {
+                $recipe['image_path'] = str_replace('../', '/', $recipe['image_path']);
+            }
+        }
+        
         
         // Clean output buffer and send clean JSON response
         ob_end_clean();

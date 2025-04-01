@@ -119,7 +119,6 @@ document.addEventListener("DOMContentLoaded", function () {
                       <div class="details">
                           <div class="header">
                               <h2>${recipe.name}</h2>
-                              <span class="favorite">⭐</span>
                           </div>
                           <span class="tag">${
                             recipe.category || "Uncategorized"
