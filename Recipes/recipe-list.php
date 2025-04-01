@@ -69,7 +69,6 @@ try {
                         <div class="details">
                             <div class="header">
                                 <h2><?= htmlspecialchars($recipe['name']) ?></h2>
-                                <span class="favorite">⭐</span>
                             </div>
                             <?php if (!empty($recipe['tags'])): ?>
                                 <span class="tag"><?= htmlspecialchars(explode(' | ', $recipe['tags'])[0]) ?></span>

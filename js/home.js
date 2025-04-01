@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
       }
     }
-    function renderRecipes(recipes) {
+    async function renderRecipes(recipes) {
       recipesContainer.innerHTML = "";
 
       if (recipes.length === 0) {
@@ -183,6 +183,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
     label.remove();
   }
+
+  async function checkFavoriteStatus(recipeId) {
+    try {
+        const response = await fetch('check-favorite.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recipe_id: recipeId })
+        });
+        const result = await response.json();
+        return result.is_favorite;
+    } catch (error) {
+        console.error('Error checking favorite status:', error);
+        return false;
+    }
+}
+
 
   // Search functionality
   const searchInput = document.getElementById("ingredient-search");

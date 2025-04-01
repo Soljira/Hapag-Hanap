@@ -1,12 +1,14 @@
 <?php
-// Start session and check authentication
+// error_reporting(0);
 session_start();
+// header('Content-Type: application/json');
+
+// Regular page load handling
 if (!isset($_SESSION['user'])) {
     header('Location: login.php');
     exit();
 }
 
-// Get recipe ID from URL
 $recipe_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 if ($recipe_id <= 0) {
     header('Location: home.php');
@@ -14,6 +16,45 @@ if ($recipe_id <= 0) {
 }
 
 require_once '../dbconnect.php';
+require_once '../utils/queries.php';
+
+// Check if recipe is favorite
+$is_favorite = false;
+if (isset($_SESSION['user_id'])) {
+    $is_favorite = isRecipeFavorite($pdo, $_SESSION['user_id'], $recipe_id);
+}
+
+// Handle favorite toggle
+// Handle favorite toggle - Move this near the top of your file
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggle_favorite'])) {
+    // Ensure this runs before any possible output
+    header('Content-Type: application/json');
+    
+    if (!isset($_SESSION['user_id'])) {
+        echo json_encode(['success' => false, 'message' => 'Please login to favorite recipes']);
+        exit(); // Exit immediately to prevent any more output
+    }
+    
+    try {
+        if ($is_favorite) {
+            $success = removeFavoriteRecipe($pdo, $_SESSION['user_id'], $recipe_id);
+            $message = 'Recipe removed from favorites';
+        } else {
+            $success = addFavoriteRecipe($pdo, $_SESSION['user_id'], $recipe_id);
+            $message = 'Recipe added to favorites!';
+        }
+        
+        echo json_encode([
+            'success' => $success,
+            'is_favorite' => !$is_favorite, // Toggle state
+            'message' => $message
+        ]);
+        exit(); // Exit immediately to prevent any more output
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
+        exit(); // Exit immediately to prevent any more output
+    }
+}
 
 // Function to fetch recipe data
 function getRecipeData($pdo, $recipe_id) {
@@ -114,115 +155,24 @@ if (!$recipe) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($recipe['basic']['name']) ?> Recipe</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #222;
-            color: white;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-        }
-        .sidebar {
-            width: 60px;
-            background-color: #D16200;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 10px;
-            height: 100vh;
-            position: fixed;
-            left: 0;
-            top: 0;
-        }
-        .icon-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-        .icon {
-            width: 20px;
-            height:20px;
-            margin: 15px 0;
-            display: block;
-        }
-        .exit-icon {
-            width: 30px;
-            height: 30px;
-            margin-top: auto;
-            margin-bottom: 20px;
+        .star-btn {
+            background: none;
+            border: none;
             cursor: pointer;
-        }
-        .logo {
-            width: 40px;
-            height: 40px;
-            margin-bottom: 20px;
-        }
-        .recipe-container {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-            width: calc(100% - 100px);
-            max-width: 1200px;
-            padding: 20px;
-            margin-left: 100px;
-        }
-        .left-section {
-            width: 55%;
-        }
-        .right-section {
-            width: 40%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .recipe-title {
-            font-size: 32px;
-            font-weight: bold;
-        }
-        .star {
-            color: yellow;
             font-size: 24px;
-            cursor: pointer;
-        }
-        .tag {
-            background: #ff6600;
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-size: 14px;
-            display: inline-block;
-            margin-top: 5px;
-            margin-right: 5px;
-        }
-        .instructions, .ingredients, .nutrition {
-            margin-top: 20px;
-        }
-        .recipe-image img {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        .nutrition-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 10px;
-        }
-        .nutrition-item {
-            background: #333;
-            padding: 10px;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .info-item {
-            margin: 10px 0;
+            color: <?= $is_favorite ? '#ffcc00' : '#ccc' ?>;
+            padding: 0;
+            margin-left: 10px;
+            vertical-align: middle;
         }
     </style>
+    <script src='../js/toggleFavorite.js'></script>
+    <link rel="stylesheet" href="../css/selected-recipe.css">
+
 </head>
 <body>
+<div id="notification" class="notification"></div>
+
     <div class="sidebar">
         <img src="../hapaglogo.jpg" alt="Logo" class="logo">
         <div class="icon-container">
@@ -236,10 +186,12 @@ if (!$recipe) {
 
     <div class="recipe-container">
         <div class="left-section">
-            <h1 class="recipe-title">
-                <?= htmlspecialchars($recipe['basic']['name']) ?>
-                <span class="star">⭐</span>
-            </h1>
+        <h1 class="recipe-title">
+        <?= htmlspecialchars($recipe['basic']['name']) ?>
+        <button id="favorite-btn" class="star-btn" onclick="toggleFavorite()">
+            <?= $is_favorite ? '★' : '☆' ?>
+        </button>
+    </h1>
             
             <?php if (!empty($recipe['categories']) || !empty($recipe['tags'])): ?>
                 <div>
@@ -319,56 +271,56 @@ if (!$recipe) {
             <?php endif; ?>
             
             <?php if (!empty($recipe['basic']['video_url'])): ?>
-    <div class="video-container" style="margin-top: 20px; width: 100%;">
-        <?php
-        // Extract YouTube video ID with fixed regex pattern
-        $url = $recipe['basic']['video_url'];
+                <div class="video-container" style="margin-top: 20px; width: 100%;">
+                    <?php
+                    // Extract YouTube video ID with fixed regex pattern
+                    $url = $recipe['basic']['video_url'];
 
-        function extractYouTubeId($url) {
-            // Corrected regular expression pattern
-            $pattern = '~
-                (?:https?://)?     # Optional protocol
-                (?:www\.)?         # Optional www subdomain
-                (?:                # Group host alternatives
-                  youtube\.com/    # Either youtube.com
-                  |youtu\.be/      # or youtu.be
-                )
-                (?:                # Group path alternatives
-                  watch\?v=        # /watch?v=
-                  |embed/          # /embed/
-                  |v/              # /v/
-                  |shorts/         # /shorts/
-                  |                # or video ID as path
-                )
-                ([^"&?/\s]{11})    # Capture the video ID (11 chars)
-                ~x';
-        
-            if (preg_match($pattern, $url, $matches)) {
-                return $matches[1];
-            }
-            return '';
-        }
-        
-        // Usage:
-        $video_id = extractYouTubeId($recipe['basic']['video_url']);
+                    function extractYouTubeId($url) {
+                        // Corrected regular expression pattern
+                        $pattern = '~
+                            (?:https?://)?     # Optional protocol
+                            (?:www\.)?         # Optional www subdomain
+                            (?:                # Group host alternatives
+                              youtube\.com/    # Either youtube.com
+                              |youtu\.be/      # or youtu.be
+                            )
+                            (?:                # Group path alternatives
+                              watch\?v=        # /watch?v=
+                              |embed/          # /embed/
+                              |v/              # /v/
+                              |shorts/         # /shorts/
+                              |                # or video ID as path
+                            )
+                            ([^"&?/\s]{11})    # Capture the video ID (11 chars)
+                            ~x';
+                    
+                        if (preg_match($pattern, $url, $matches)) {
+                            return $matches[1];
+                        }
+                        return '';
+                    }
+                    
+                    // Usage:
+                    $video_id = extractYouTubeId($recipe['basic']['video_url']);
 
-        ?>
-        <?php if ($video_id): ?>
-            <iframe 
-                width="100%" 
-                height="315" 
-                src="https://www.youtube-nocookie.com/embed/<?= htmlspecialchars($video_id) ?>?rel=0" 
-                frameborder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                allowfullscreen
-            ></iframe>
-        <?php else: ?>
-            <a href="<?= htmlspecialchars($url) ?>" target="_blank" rel="noopener noreferrer">
-                Watch Video (opens in new tab)
-            </a>
-        <?php endif; ?>
-    </div>
-<?php endif; ?>
+                    ?>
+                    <?php if ($video_id): ?>
+                        <iframe 
+                            width="100%" 
+                            height="315" 
+                            src="https://www.youtube-nocookie.com/embed/<?= htmlspecialchars($video_id) ?>?rel=0" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen
+                        ></iframe>
+                    <?php else: ?>
+                        <a href="<?= htmlspecialchars($url) ?>" target="_blank" rel="noopener noreferrer">
+                            Watch Video (opens in new tab)
+                        </a>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
             <div class="ingredients">
                 <h2>Ingredients</h2>
                 <ul>

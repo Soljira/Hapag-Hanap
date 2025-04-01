@@ -43,11 +43,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     }
 
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-    $stmt = $pdo->prepare("INSERT INTO users (email, password,username,created_at) VALUES (:email, :password, :username, :created_at)");
-    $stmt->execute(['email' => $email, 'password' => $hashedPassword, 'username'=>$username,'created_at'=>$created_at]);
+    $stmt = $pdo->prepare("INSERT INTO users (email, password, username, created_at) 
+    VALUES (:email, :password, :username, :created_at)");
+$stmt->execute([
+'email' => $email, 
+'password' => $hashedPassword,
+'username' => $username,
+'created_at' => $created_at
+]);
 
-    header('Location: index.php');
-    exit();
+// Get the newly created user ID (uppercase)
+$userID = $pdo->lastInsertId();
+$_SESSION['user'] = $email;
+$_SESSION['user_id'] = $userID;
+
+header('Location: home.php');
+exit();
 }
 
 
@@ -80,6 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             'username'=>$user['username'],
             'created_at' => $user['created_at']
         ];
+
+        $_SESSION['user'] = $user['email'];  // Or $user['username'] if you prefer
+        $_SESSION['user_id'] = $user['ID'];  // This is critical for favorites
 
         header('Location: home.php');
         exit();
