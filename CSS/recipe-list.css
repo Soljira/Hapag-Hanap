@@ -1,0 +1,296 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #222;
+    color: white;
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar - Same as home.php */
+.sidebar {
+    width: 60px;
+    background-color: #D16200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    margin: 15px 0;
+    display: block;
+}
+
+.exit-icon {
+    width: 30px;
+    height: 30px;
+    margin-top: auto;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 20px;
+}
+
+/* Main Content */
+.main-content {
+    margin-left: 60px; /* Same as sidebar width */
+    padding: 30px;
+    width: calc(100% - 60px);
+}
+
+/* Header Styles */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2rem;
+    color: #ffffff;
+}
+
+.actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Search and Filter Elements */
+.search-box {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 25px;
+    width: 250px;
+    background-color: #333;
+    color: white;
+}
+
+.category-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #cc6600;
+    border: none;
+    color: white;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.category-btn:hover {
+    background-color: #b35900;
+}
+
+.filter-icon, .dropdown-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.add-btn {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: 3px solid #ffcc00;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    position: relative;
+    color: #ffcc00;
+    font-size: 1.2rem;
+}
+
+/* Recipe Grid */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 25px;
+}
+
+.recipe-card {
+    display: flex;
+    background-color: #1a1a1a;
+    border-radius: 15px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    height: 250px;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.recipe-card img {
+    width: 40%;
+    object-fit: cover;
+}
+
+.details {
+    width: 60%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.header h2 {
+    font-size: 1.3rem;
+    margin-right: 10px;
+}
+
+.favorite {
+    color: #FFC107;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+.tag {
+    background: #ff6600;
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    display: inline-flex; /* Changed to inline-flex */
+    align-items: center; /* Vertically centers text */
+    justify-content: center; /* Horizontally centers text */
+    margin-bottom: 0; /* Remove bottom margin since we're centering */
+    max-width: 100px;
+    height: 24px; /* Fixed height for consistent alignment */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.author {
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 8px;
+}
+
+.description {
+    font-size: 0.9rem;
+    color: #ddd;
+    margin-bottom: 10px;
+    overflow-y: auto; /* Makes it scrollable */
+    max-height: 80px; /* Fixed height for scrollable area */
+    padding-right: 5px; /* Prevents text from touching scrollbar */
+    line-height: 1.4; /* Better readability */
+    flex-grow: 1; /* Takes available space */
+    
+    /* Custom scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: #ff6600 #333;
+}
+
+/* Webkit scrollbar styling */
+.description::-webkit-scrollbar {
+    width: 6px;
+}
+
+.description::-webkit-scrollbar-track {
+    background: #333;
+    border-radius: 3px;
+}
+
+.description::-webkit-scrollbar-thumb {
+    background-color: #ff6600;
+    border-radius: 3px;
+}
+
+
+.info {
+    font-size: 0.8rem;
+    color: #bbb;
+    margin: 2px 0;
+}
+
+.arrow {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    font-size: 1.5rem;
+    color: #FFC107;
+}
+
+/* Empty State */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 50px;
+    color: #888;
+    font-size: 1.2rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .recipe-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .recipe-card {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .recipe-card img {
+        width: 100%;
+        height: 150px;
+    }
+    
+    .details {
+        width: 100%;
+    }
+    
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .actions {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+}

@@ -200,6 +200,24 @@ function getAllIngredients($pdo) {
 }
 
 
-function getRecipeDetails($pdo, $recipeId) {
-    // Add other recipe-related queries here as needed
+function getAllRecipes($pdo) {
+    try {
+        $query = "
+            SELECT r.*, 
+                   GROUP_CONCAT(DISTINCT rt.tag SEPARATOR ' | ') AS tags,
+                   rd.prep_time, rd.cook_time, rd.servings, rd.calories
+            FROM recipes r
+            LEFT JOIN recipe_tags rt ON r.id = rt.recipe_id
+            LEFT JOIN recipe_details rd ON r.id = rd.recipe_id
+            GROUP BY r.id
+            ORDER BY r.name
+        ";
+        
+        $stmt = $pdo->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Recipe fetch error: " . $e->getMessage());
+        return [];
+    }
 }
