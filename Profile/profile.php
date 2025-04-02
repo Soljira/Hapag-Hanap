@@ -57,40 +57,41 @@ $favorites = getFavoriteRecipes($pdo, $_SESSION['user_id']);
         </div>
     <?php else: ?>
         <?php foreach ($favorites as $recipe): ?>
-    <a href="../recipes/selected-recipe.php?id=<?= $recipe['id'] ?>" class="recipe-card-link">
-        <div class="recipe-card">
-            <?php if (!empty($recipe['image_path'])): ?>
-                <img src="<?= htmlspecialchars($recipe['image_path']) ?>" alt="<?= htmlspecialchars($recipe['name']) ?>" class="recipe-img">
-            <?php else: ?>
-                <img src="../images/default-recipe.jpg" alt="Default recipe image" class="recipe-img">
+<a href="../recipes/selected-recipe.php?id=<?= $recipe['id'] ?>" class="recipe-card-link">
+    <div class="recipe-card">
+        <?php if (!empty($recipe['image_path'])): ?>
+            <img src="<?= htmlspecialchars($recipe['image_path']) ?>" alt="<?= htmlspecialchars($recipe['name']) ?>" class="recipe-img">
+        <?php else: ?>
+            <img src="../images/default-recipe.jpg" alt="Default recipe image" class="recipe-img">
+        <?php endif; ?>
+        
+        <div class="recipe-details">
+            <h3 class="recipe-name"><?= htmlspecialchars($recipe['name']) ?></h3>
+            
+            <?php if (!empty($recipe['tags'])): ?>
+                <span class="tag"><?= htmlspecialchars(explode(' | ', $recipe['tags'])[0]) ?></span>
             <?php endif; ?>
             
-            <div class="recipe-details">
-                <?php if (!empty($recipe['tags'])): ?>
-                    <span class="tag"><?= htmlspecialchars(explode(' | ', $recipe['tags'])[0]) ?></span>
-                <?php endif; ?>
-                
-                
-                <?php if (!empty($recipe['author'])): ?>
-                    <p>By: <?= htmlspecialchars($recipe['author']) ?></p>
-                <?php endif; ?>
-                
-                <?php if (!empty($recipe['description'])): ?>
-                    <p><?= htmlspecialchars($recipe['description']) ?></p>
-                <?php endif; ?>
-                
-                <?php if (!empty($recipe['prep_time']) && !empty($recipe['cook_time'])): ?>
-                    <p>
-                        <strong>Servings:</strong> <?= htmlspecialchars($recipe['servings'] ?? 'N/A') ?> | 
-                        <strong>Prep:</strong> <?= htmlspecialchars($recipe['prep_time']) ?> min | 
-                        <strong>Cook:</strong> <?= htmlspecialchars($recipe['cook_time']) ?> min | 
-                        <strong>Total:</strong> <?= htmlspecialchars($recipe['prep_time'] + $recipe['cook_time']) ?> min
-                    </p>
-                <?php endif; ?>
-            </div>
-            <i class="fa-solid fa-chevron-right arrow-icon"></i>
+            <?php if (!empty($recipe['author'])): ?>
+                <p>By: <?= htmlspecialchars($recipe['author']) ?></p>
+            <?php endif; ?>
+            
+            <?php if (!empty($recipe['description'])): ?>
+                <p><?= htmlspecialchars($recipe['description']) ?></p>
+            <?php endif; ?>
+            
+            <?php if (!empty($recipe['prep_time']) && !empty($recipe['cook_time'])): ?>
+                <p>
+                    <strong>Servings:</strong> <?= htmlspecialchars($recipe['servings'] ?? 'N/A') ?> | 
+                    <strong>Prep:</strong> <?= htmlspecialchars($recipe['prep_time']) ?> min | 
+                    <strong>Cook:</strong> <?= htmlspecialchars($recipe['cook_time']) ?> min | 
+                    <strong>Total:</strong> <?= htmlspecialchars($recipe['prep_time'] + $recipe['cook_time']) ?> min
+                </p>
+            <?php endif; ?>
         </div>
-    </a>
+        <i class="fa-solid fa-chevron-right arrow-icon"></i>
+    </div>
+</a>
 <?php endforeach; ?>
     <?php endif; ?>
 </div>
