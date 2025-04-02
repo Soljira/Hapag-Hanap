@@ -15,9 +15,10 @@ $favorites = getFavoriteRecipes($pdo, $_SESSION['user_id']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saved Recipes</title>
+    <title>Hapag Hanap - Profile</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="../css/profile.css">
+    <link rel="icon" href="../hapaglogo.jpg" type="image/ico">
 
 </head>
 <body>
@@ -27,7 +28,7 @@ $favorites = getFavoriteRecipes($pdo, $_SESSION['user_id']);
             <a href="../home.php"><img src="../assets/icons/home.png" class="icon"></a>
             <a href="../profile/profile.php"><img src="../assets/icons/person.png" class="icon"></a>
             <a href="../recipes/recipe-list.php"><img src="../assets/icons/recipe.png" class="icon"></a>
-            <a href="../contact-us.php"><img src="../assets/icons/phone.png" class="icon"></a>
+            <!-- <a href="../contact-us.php"><img src="../assets/icons/phone.png" class="icon"></a> -->
         </div>    
 
     <a href="../logout.php" class="exit-icon"><img src="../assets/icons/exit.png"></a>

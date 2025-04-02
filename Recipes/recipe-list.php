@@ -25,10 +25,8 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipes UI</title>
     <link rel="stylesheet" href="../css/recipe-list.css"> 
-    <style>
-        /* Keep all your existing styles */
-        /* ... */
-    </style>
+    <link rel="icon" href="../hapaglogo.jpg" type="image/ico">
+
 </head>
 <body>
     <div class="sidebar">
@@ -37,7 +35,7 @@ try {
             <a href="../home.php"><img src="../assets/icons/home.png" class="icon"></a>
             <a href="../profile/profile.php"><img src="../assets/icons/person.png" class="icon"></a>
             <a href="../recipes/recipe-list.php"><img src="../assets/icons/recipe.png" class="icon"></a>
-            <a href="../contact-us.php"><img src="../assets/icons/phone.png" class="icon"></a>
+            <!-- <a href="../contact-us.php"><img src="../assets/icons/phone.png" class="icon"></a> -->
         </div>    
         <a href="../logout.php" class="exit-icon"><img src="../assets/icons/exit.png"></a>
     </div>

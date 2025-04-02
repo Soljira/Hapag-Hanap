@@ -14,6 +14,7 @@ if (isset($_SESSION['errors'])) {
     <title>Hapag-Hanap</title>
     <link rel="stylesheet" href="css/register.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" href="hapaglogo.jpg" type="image/ico">
 
 </head>
 <body> 
