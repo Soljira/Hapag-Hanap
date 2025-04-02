@@ -132,3 +132,8 @@ function isRecipeFavorite($pdo, $user_id, $recipe_id) {
         return false;
     }
 }
+
+function getAllUniqueTags($pdo) {
+    $stmt = $pdo->query("SELECT DISTINCT tag FROM recipe_tags ORDER BY tag");
+    return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
+}

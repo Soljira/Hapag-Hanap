@@ -188,12 +188,12 @@ header h1 {
     padding: 5px 10px;
     border-radius: 6px;
     font-size: 0.8rem;
-    display: inline-flex; /* Changed to inline-flex */
-    align-items: center; /* Vertically centers text */
-    justify-content: center; /* Horizontally centers text */
-    margin-bottom: 0; /* Remove bottom margin since we're centering */
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    margin-bottom: 0; 
     max-width: 100px;
-    height: 24px; /* Fixed height for consistent alignment */
+    height: 24px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -209,13 +209,13 @@ header h1 {
     font-size: 0.9rem;
     color: #ddd;
     margin-bottom: 10px;
-    overflow-y: auto; /* Makes it scrollable */
-    max-height: 80px; /* Fixed height for scrollable area */
-    padding-right: 5px; /* Prevents text from touching scrollbar */
-    line-height: 1.4; /* Better readability */
-    flex-grow: 1; /* Takes available space */
+    overflow-y: auto;
+    max-height: 80px; 
+    padding-right: 5px;
+    line-height: 1.4; 
+    flex-grow: 1; 
     
-    /* Custom scrollbar */
+    /* scrollbar */
     scrollbar-width: thin;
     scrollbar-color: #ff6600 #333;
 }
@@ -306,3 +306,181 @@ header h1 {
     }
 }
 
+
+
+/* Category Dropdown Styles */
+.category-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #ff6600;
+}
+
+.category-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Highlight selected category */
+.dropdown-content a[href="<?= $_SERVER['PHP_SELF'] ?>?category=<?= urlencode($selectedCategory) ?>"] {
+    background-color: #ff6600;
+}
+
+
+
+.category-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.clear-filter {
+    display: block;
+    padding: 10px 15px;
+    color: #ff6600;
+    font-weight: bold;
+    border-bottom: 1px solid #555;
+}
+
+.category-group {
+    padding: 8px 0;
+    border-bottom: 1px solid #ff6600;
+}
+
+.category-name {
+    display: block;
+    padding: 8px 15px;
+    color: #ffcc00;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.tags-container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 10px 5px;
+    gap: 5px;
+}
+
+.tags-container a {
+    display: inline-block;
+    padding: 5px 10px;
+    background: #555;
+    border-radius: 15px;
+    font-size: 0.8em;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.tags-container a:hover, 
+.tags-container a.active {
+    background: #ff6600;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Tag Dropdown Styles */
+.category-dropdown {
+    position: relative;
+    display: inline-block;
+    min-width: 180px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 200px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.category-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.clear-filter {
+    display: block;
+    padding: 10px 15px;
+    color: #ff6600;
+    font-weight: bold;
+    border-bottom: 1px solid #555;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 8px 15px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.dropdown-content a:hover, 
+.dropdown-content a.active {
+    background: #ff6600;
+    color: white;
+}
+
+
+.tag-dropdown {
+    position: relative;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #333;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-content a {
+    color: white;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+    background-color: #ff6600;
+}
+
+.dropdown-content a.active {
+    background-color: #ff6600;
+    font-weight: bold;
+}
+
+.filter-btn {
+    background: #ff6600;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.filter-icon, .dropdown-icon {
+    width: 16px;
+    height: 16px;
+}

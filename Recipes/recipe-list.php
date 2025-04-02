@@ -2,19 +2,27 @@
 require_once '../dbconnect.php';
 require_once '../utils/queries.php';
 
-// Start session and check authentication
 session_start();
 if (!isset($_SESSION['user'])) {
     header('Location: ../login.php');
     exit();
 }
 
-// Fetch all recipes from database
 try {
     $recipes = getAllRecipes($pdo);
+    $tags = getAllUniqueTags($pdo);
 } catch (Exception $e) {
     $error = $e->getMessage();
     $recipes = [];
+    $tags = [];
+}
+
+$selectedTag = $_GET['tag'] ?? null;
+
+if ($selectedTag) {
+    $recipes = array_filter($recipes, function($recipe) use ($selectedTag) {
+        return strpos($recipe['tags'], $selectedTag) !== false;
+    });
 }
 ?>
 
@@ -26,7 +34,6 @@ try {
     <title>Recipes UI</title>
     <link rel="stylesheet" href="../css/recipe-list.css"> 
     <link rel="icon" href="../hapaglogo.jpg" type="image/ico">
-
 </head>
 <body>
     <div class="sidebar">
@@ -35,7 +42,6 @@ try {
             <a href="../home.php"><img src="../assets/icons/home.png" class="icon"></a>
             <a href="../profile/profile.php"><img src="../assets/icons/person.png" class="icon"></a>
             <a href="../recipes/recipe-list.php"><img src="../assets/icons/recipe.png" class="icon"></a>
-            <!-- <a href="../contact-us.php"><img src="../assets/icons/phone.png" class="icon"></a> -->
         </div>    
         <a href="../logout.php" class="exit-icon"><img src="../assets/icons/exit.png"></a>
     </div>
@@ -44,15 +50,26 @@ try {
         <header>
             <h1>All Recipes</h1>
             <div class="actions">
-                <button class="category-btn">
-                    <svg class="filter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path fill="white" d="M3 4h18a1 1 0 0 1 .78 1.625l-6.14 7.675V18a1 1 0 0 1-.553.894l-4 2A1 1 0 0 1 10 20v-6.7L3.22 5.625A1 1 0 0 1 3 4z"/>
-                    </svg>
-                    <span>Category</span>
-                    <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path fill="white" d="M7 10l5 5 5-5H7z"/>
-                    </svg>
-                </button>
+                <div class="tag-dropdown">
+                    <button class="filter-btn">
+                        <svg class="filter-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="white" d="M3 4h18a1 1 0 0 1 .78 1.625l-6.14 7.675V18a1 1 0 0 1-.553.894l-4 2A1 1 0 0 1 10 20v-6.7L3.22 5.625A1 1 0 0 1 3 4z"/>
+                        </svg>
+                        <span><?= $selectedTag ? htmlspecialchars($selectedTag) : 'Filter by Tag' ?></span>
+                        <svg class="dropdown-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <path fill="white" d="M7 10l5 5 5-5H7z"/>
+                        </svg>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="?" class="clear-filter">All Tags</a>
+                        <?php foreach ($tags as $tag): ?>
+                            <a href="?tag=<?= urlencode($tag) ?>" 
+                               class="<?= $selectedTag === $tag ? 'active' : '' ?>">
+                                <?= htmlspecialchars($tag) ?>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
                 <input type="text" placeholder="Search recipes" class="search-box" id="recipe-search">
             </div>
         </header>
@@ -96,16 +113,60 @@ try {
     </div>
 
     <script>
-    // Add search functionality
+    // Search functionality with tag filtering
     document.getElementById('recipe-search').addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase();
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedTag = urlParams.get('tag');
+        
         document.querySelectorAll('.recipe-card').forEach(card => {
             const name = card.querySelector('h2').textContent.toLowerCase();
             const desc = card.querySelector('.description')?.textContent.toLowerCase() || '';
-            const matches = name.includes(searchTerm) || desc.includes(searchTerm);
-            card.style.display = matches ? 'flex' : 'none';
+            const tags = card.querySelector('.tag')?.textContent.toLowerCase() || '';
+            
+            // Check both search term and tag
+            const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm);
+            const matchesTag = !selectedTag || tags.includes(selectedTag.toLowerCase());
+            
+            card.style.display = (matchesSearch && matchesTag) ? 'flex' : 'none';
         });
     });
+
+    // Highlight selected tag in dropdown
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const selectedTag = urlParams.get('tag');
+        const searchTerm = urlParams.get('search');
+
+        
+        if (selectedTag) {
+            document.querySelector('.filter-btn span').textContent = selectedTag;
+        }
+        
+        if (searchTerm) {
+            document.getElementById('recipe-search').value = searchTerm;
+            document.getElementById('recipe-search').dispatchEvent(new Event('input'));
+        }
+    });
+
+    
+            const filterBtn = document.querySelector('.filter-btn');
+    const dropdownContent = document.querySelector('.dropdown-content');
+
+    filterBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+    });
+
+        document.addEventListener('click', function() {
+        dropdownContent.style.display = 'none';
+    });
+
+    dropdownContent.addEventListener('click', function(e) {
+        e.stopPropagation();
+    });
+
+    
     </script>
 </body>
 </html>
