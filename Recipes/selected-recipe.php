@@ -1,9 +1,6 @@
 <?php
-// error_reporting(0);
 session_start();
-// header('Content-Type: application/json');
 
-// Regular page load handling
 if (!isset($_SESSION['user'])) {
     header('Location: login.php');
     exit();
@@ -18,21 +15,19 @@ if ($recipe_id <= 0) {
 require_once '../dbconnect.php';
 require_once '../utils/queries.php';
 
-// Check if recipe is favorite
+// Checksss if recipe is favorite
 $is_favorite = false;
 if (isset($_SESSION['user_id'])) {
     $is_favorite = isRecipeFavorite($pdo, $_SESSION['user_id'], $recipe_id);
 }
 
 // Handle favorite toggle
-// Handle favorite toggle - Move this near the top of your file
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggle_favorite'])) {
-    // Ensure this runs before any possible output
     header('Content-Type: application/json');
     
     if (!isset($_SESSION['user_id'])) {
         echo json_encode(['success' => false, 'message' => 'Please login to favorite recipes']);
-        exit(); // Exit immediately to prevent any more output
+        exit(); 
     }
     
     try {
@@ -46,17 +41,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggle_favorite'])) {
         
         echo json_encode([
             'success' => $success,
-            'is_favorite' => !$is_favorite, // Toggle state
+            'is_favorite' => !$is_favorite, 
             'message' => $message
         ]);
-        exit(); // Exit immediately to prevent any more output
+        exit(); 
     } catch (Exception $e) {
         echo json_encode(['success' => false, 'message' => 'Error: ' . $e->getMessage()]);
-        exit(); // Exit immediately to prevent any more output
+        exit();
     }
 }
 
-// Function to fetch recipe data
+/** Function to fetch recipe data:
+    * Basic recipe information
+    * Recipe details
+    * Categories
+    * Ingredients
+    * Instructions
+    * Nutrition information
+    * Tags
+    *  Additional information
+*/
 function getRecipeData($pdo, $recipe_id) {
     $recipe = [];
     
@@ -140,7 +144,6 @@ function getRecipeData($pdo, $recipe_id) {
     }
 }
 
-// Get recipe data
 $recipe = getRecipeData($pdo, $recipe_id);
 if (!$recipe) {
     header('Location: home.php');
@@ -153,7 +156,7 @@ if (!$recipe) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($recipe['basic']['name']) ?> Recipe</title>
+    <title><?= htmlspecialchars($recipe['basic']['name']) ?>Hapag Hanap - Recipe List</title>
     <style>
         .star-btn {
             background: none;
@@ -274,26 +277,25 @@ if (!$recipe) {
             <?php if (!empty($recipe['basic']['video_url'])): ?>
                 <div class="video-container" style="margin-top: 20px; width: 100%;">
                     <?php
-                    // Extract YouTube video ID with fixed regex pattern
                     $url = $recipe['basic']['video_url'];
 
                     function extractYouTubeId($url) {
-                        // Corrected regular expression pattern
+                        // i dont understand what this is fuck regex
                         $pattern = '~
-                            (?:https?://)?     # Optional protocol
-                            (?:www\.)?         # Optional www subdomain
-                            (?:                # Group host alternatives
+                            (?:https?://)?     
+                            (?:www\.)?         
+                            (?:                
                               youtube\.com/    # Either youtube.com
                               |youtu\.be/      # or youtu.be
                             )
-                            (?:                # Group path alternatives
-                              watch\?v=        # /watch?v=
-                              |embed/          # /embed/
-                              |v/              # /v/
-                              |shorts/         # /shorts/
-                              |                # or video ID as path
+                            (?:                
+                              watch\?v=        
+                              |embed/          
+                              |v/              
+                              |shorts/         
+                              |                
                             )
-                            ([^"&?/\s]{11})    # Capture the video ID (11 chars)
+                            ([^"&?/\s]{11})    
                             ~x';
                     
                         if (preg_match($pattern, $url, $matches)) {
@@ -302,7 +304,6 @@ if (!$recipe) {
                         return '';
                     }
                     
-                    // Usage:
                     $video_id = extractYouTubeId($recipe['basic']['video_url']);
 
                     ?>

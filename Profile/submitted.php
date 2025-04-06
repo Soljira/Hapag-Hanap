@@ -163,7 +163,7 @@
         <img src="../images/pfp.png" alt="Chef Clawdia" class="profile-pic">
         <i class="fa-solid fa-pen edit-icon"></i>
         <h2>Chef Clawdia</h2>
-        <p>100 followers | 0 following</p>
+        <!-- <p>100 followers | 0 following</p> -->
         <p>Just a cat who cooks when my owner isn't around.</p>
         <div class="email">
             <i class="fa-solid fa-envelope"></i>

@@ -15,7 +15,40 @@ if ($isApiRequest) {
         echo json_encode(['success' => false, 'error' => 'Unauthorized']);
         exit();
     }
-    
+
+    // Handle tag filtering
+    if (isset($_POST['tag'])) {
+        $tag = trim($_POST['tag']);
+        
+        try {
+            $query = "
+                SELECT r.*, 
+                    GROUP_CONCAT(DISTINCT rt.tag SEPARATOR ' | ') AS tags
+                FROM recipes r
+                LEFT JOIN recipe_tags rt ON r.id = rt.recipe_id
+                WHERE rt.tag = ?
+                GROUP BY r.id
+                ORDER BY r.name
+            ";
+            
+            $stmt = $pdo->prepare($query);
+            $stmt->execute([$tag]);
+            $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            
+            echo json_encode([
+                'success' => true,
+                'data' => $recipes
+            ]);
+            exit;
+        } catch (PDOException $e) {
+            echo json_encode([
+                'success' => false,
+                'error' => 'Database error'
+            ]);
+            exit;
+        }
+    }
+        
     require_once './dbconnect.php';
     require_once './utils/queries.php';
     

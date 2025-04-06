@@ -4,14 +4,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const recipesContainer = document.querySelector(".recipe-grid");
   let debounceTimer;
 
-  // Get containers
   const availableIngredients = document.getElementById("available-ingredients");
   const selectedIngredientsContainer = document.getElementById(
     "selected-ingredients"
   );
 
   if (availableIngredients && selectedIngredientsContainer) {
-    // Store original order on page load
     document
       .querySelectorAll("#available-ingredients label")
       .forEach((label) => {
@@ -22,16 +20,15 @@ document.addEventListener("DOMContentLoaded", function () {
         });
       });
 
-    // Remove all existing BR tags
     const brTags = availableIngredients.querySelectorAll("br");
     brTags.forEach((br) => br.remove());
 
-    // Handle checkbox changes
     availableIngredients.addEventListener("change", handleIngredientChange);
     selectedIngredientsContainer.addEventListener(
       "change",
       handleIngredientChange
     );
+
 
     function handleIngredientChange(e) {
       if (e.target.type === "checkbox") {
@@ -40,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
           moveToAvailable(e.target);
         }
-        // Trigger recipe search with debounce
         debounceSearch();
       }
     }
@@ -63,7 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Add client-side validation for minimum 3 ingredients
       if (selectedIngredients.length < 3) {
         recipesContainer.innerHTML =
           '<div class="error">Please select at least 3 ingredients to find recipes</div>';
@@ -74,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         '<div class="loading">Searching recipes...</div>';
 
       try {
-        const minMatch = 3; // Fixed minimum match of 3
+        const minMatch = 3; // DAPAT PUMILI MUNA NG 3 INGREDIENTS BEFORE MAGFETCH NG RECIPES
         const response = await fetch("home.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -106,54 +101,94 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
     async function renderRecipes(recipes) {
-      recipesContainer.innerHTML = "";
-
-      if (recipes.length === 0) {
-        recipesContainer.innerHTML =
-          '<div class="no-recipes">No recipes found with these ingredients</div>';
-        return;
-      }
-
-      const recipeCount = document.querySelector(".recipes-container h2");
-      if (recipeCount) {
-        recipeCount.textContent = `${recipes.length} Recipes Found`;
-      }
-
-      recipes.forEach((recipe) => {
-        const recipeCard = document.createElement("div");
-        recipeCard.className = "recipe-card";
-        recipeCard.innerHTML = `
-                      ${
-                        recipe.image_path
-                          ? `<img src="${recipe.image_path}" alt="${recipe.name}">`
-                          : ""
-                      }
-                      <div class="details">
-                          <div class="header">
-                              <h2>${recipe.name}</h2>
-                          </div>
-                          <span class="tag">${
-                            recipe.category || "Uncategorized"
-                          }</span>
-                          <p class="author">By: ${
-                            recipe.author || "Unknown"
-                          }</p>
-                          ${
-                            recipe.description
-                              ? `<p class="description">${recipe.description}</p>`
-                              : ""
-                          }
-                          <span class="arrow">❯</span>
-                      </div>
-                  `;
-        recipeCard.addEventListener("click", () => {
-          window.location.href = `./recipes/selected-recipe.php?id=${recipe.id}`;
+        recipesContainer.innerHTML = "";
+      
+        if (recipes.length === 0) {
+          recipesContainer.innerHTML = '<div class="no-recipes">No recipes found with these ingredients</div>';
+          return;
+        }
+      
+        const recipeCount = document.querySelector(".recipes-container h2");
+        if (recipeCount) {
+          recipeCount.textContent = `${recipes.length} Recipes Found`;
+        }
+      
+        recipes.forEach((recipe) => {
+          const recipeCard = document.createElement("div");
+          recipeCard.className = "recipe-card";
+          
+          // Create tags HTML if tags exist
+          let tagsHtml = '';
+          if (recipe.tags) {
+            // Split the concatenated tags by the pipe separator (matches your SQL query)
+            const tagsArray = recipe.tags.split(' | ').filter(tag => tag.trim() !== '');
+            tagsHtml = `
+              <div class="tags-container">
+                ${tagsArray.map(tag => `
+                  <span class="tag" data-tag="${encodeURIComponent(tag.trim())}">
+                    ${tag.trim()}
+                  </span>
+                `).join('')}
+              </div>
+            `;
+          }
+      
+          recipeCard.innerHTML = `
+            ${recipe.image_path ? `<img src="${recipe.image_path}" alt="${recipe.name}">` : ''}
+            <div class="details">
+              <div class="header">
+                <h2>${recipe.name}</h2>
+              </div>
+              ${tagsHtml}
+              <p class="author">By: ${recipe.author || "Unknown"}</p>
+              ${recipe.description ? `<p class="description">${recipe.description}</p>` : ''}
+              <span class="arrow">❯</span>
+            </div>
+          `;
+          
+          // Recipe click handler
+          recipeCard.addEventListener("click", () => {
+            window.location.href = `./recipes/selected-recipe.php?id=${recipe.id}`;
+          });
+          
+          // Add click handlers for tags (prevent bubbling to recipe card)
+          recipeCard.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', function(e) {
+              e.stopPropagation();
+              const tagName = decodeURIComponent(this.getAttribute('data-tag'));
+              filterByTag(tagName);
+            });
+          });
+          
+          recipesContainer.appendChild(recipeCard);
         });
-        recipesContainer.appendChild(recipeCard);
-      });
-    }
+      }
+      
+      // Function to filter recipes by tag
+      async function filterByTag(tagName) {
+        try {
+          const response = await fetch("home.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tag: tagName })
+          });
+      
+          if (!response.ok) throw new Error("Network response was not ok");
+          
+          const result = await response.json();
+          
+          if (result.success) {
+            renderRecipes(result.data);
+            document.querySelectorAll('.tag').forEach(tag => {
+              const currentTag = decodeURIComponent(tag.getAttribute('data-tag'));
+              tag.classList.toggle('active', currentTag === tagName);
+            });
+          }
+        } catch (error) {
+          console.error("Error filtering by tag:", error);
+        }
+      }
 
-    // Initial empty state
     recipesContainer.innerHTML =
       '<div class="empty-state">Select ingredients to find recipes</div>';
   }
@@ -184,20 +219,51 @@ document.addEventListener("DOMContentLoaded", function () {
     label.remove();
   }
 
-  async function checkFavoriteStatus(recipeId) {
-    try {
-        const response = await fetch('check-favorite.php', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ recipe_id: recipeId })
-        });
-        const result = await response.json();
-        return result.is_favorite;
-    } catch (error) {
-        console.error('Error checking favorite status:', error);
-        return false;
+  async function renderRecipes(recipes) {
+    recipesContainer.innerHTML = "";
+  
+    if (recipes.length === 0) {
+      recipesContainer.innerHTML = '<div class="no-recipes">No recipes found with these ingredients</div>';
+      return;
     }
-}
+  
+    const recipeCount = document.querySelector(".recipes-container h2");
+    if (recipeCount) {
+      recipeCount.textContent = `${recipes.length} Recipes Found`;
+    }
+  
+    recipes.forEach((recipe) => {
+      const recipeCard = document.createElement("div");
+      recipeCard.className = "recipe-card";
+      
+      let tagsHtml = '';
+      if (recipe.tags) {
+        const tagsArray = recipe.tags.split(' | ');
+        tagsHtml = `<div class="tags-container">${tagsArray.map(tag => 
+          `<span class="tag">${tag.trim()}</span>`
+        ).join('')}</div>`;
+      }
+  
+      recipeCard.innerHTML = `
+        ${recipe.image_path ? `<img src="${recipe.image_path}" alt="${recipe.name}">` : ''}
+        <div class="details">
+          <div class="header">
+            <h2>${recipe.name}</h2>
+          </div>
+          ${tagsHtml}
+          <p class="author">By: ${recipe.author || "Unknown"}</p>
+          ${recipe.description ? `<p class="description">${recipe.description}</p>` : ''}
+          <span class="arrow">❯</span>
+        </div>
+      `;
+      
+      recipeCard.addEventListener("click", () => {
+        window.location.href = `./recipes/selected-recipe.php?id=${recipe.id}`;
+      });
+      recipesContainer.appendChild(recipeCard);
+    });
+  }
+
 
 
   // Search functionality
@@ -231,7 +297,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
       }
 
-      // Add the new validation check
       if (selectedIngredients.length < 3) {
         alert("Please select at least 3 ingredients to find recipes.");
         recipesContainer.innerHTML =

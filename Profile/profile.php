@@ -8,7 +8,6 @@ if (!isset($_SESSION['user'])) {
 require_once '../dbconnect.php';
 require_once '../utils/queries.php';
 
-// Get user data
 $user_id = $_SESSION['user_id'];
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$user_id]);
@@ -16,12 +15,10 @@ $user = $stmt->fetch();
 
 $favorites = getFavoriteRecipes($pdo, $user_id);
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $description = $_POST['description'] ?? '';
     
-    // Handle profile picture upload
     $profile_pic = $user['profile_pic'] ?? '../images/pfp.png';
     
     if (isset($_FILES['profile_pic']) && $_FILES['profile_pic']['error'] === UPLOAD_ERR_OK) {

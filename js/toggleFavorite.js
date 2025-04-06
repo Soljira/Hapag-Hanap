@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize the notification element
     const notification = document.getElementById('notification');
     if (!notification) {
         console.error('Notification element not found');
@@ -21,7 +20,7 @@ async function toggleFavorite() {
         });
         
         const rawResponse = await response.text();
-        console.log("Raw response:", rawResponse); // Add this line
+        console.log("Raw response:", rawResponse);
         
         const result = JSON.parse(rawResponse);
 

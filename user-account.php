@@ -92,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
             'created_at' => $user['created_at']
         ];
 
-        $_SESSION['user'] = $user['email'];  // Or $user['username'] if you prefer
-        $_SESSION['user_id'] = $user['ID'];  // This is critical for favorites
+        $_SESSION['user'] = $user['email']; 
+        $_SESSION['user_id'] = $user['ID'];  // This is BERI  BERI IMPORTANT for favorites
 
         header('Location: home.php');
         exit();

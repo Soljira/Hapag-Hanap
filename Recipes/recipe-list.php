@@ -31,7 +31,7 @@ if ($selectedTag) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recipes UI</title>
+    <title>Hapag Hanap - Recipes</title>
     <link rel="stylesheet" href="../css/recipe-list.css"> 
     <link rel="icon" href="../hapaglogo.jpg" type="image/ico">
 </head>
@@ -113,7 +113,7 @@ if ($selectedTag) {
     </div>
 
     <script>
-    // Search functionality with tag filtering
+    // Search functionality with tag filtering DO NOT TOUCH VERY IMPORTANT
     document.getElementById('recipe-search').addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase();
         const urlParams = new URLSearchParams(window.location.search);
@@ -124,7 +124,9 @@ if ($selectedTag) {
             const desc = card.querySelector('.description')?.textContent.toLowerCase() || '';
             const tags = card.querySelector('.tag')?.textContent.toLowerCase() || '';
             
-            // Check both search term and tag
+            // This part checks if a recipe card matches the user's search input and selected tag.
+            // matchesSearch is true if the recipe's name or description contains the search term.
+            // matchesTag is true if no tag is selected or if the recipe's tags include the selected tag (case-insensitive).
             const matchesSearch = name.includes(searchTerm) || desc.includes(searchTerm);
             const matchesTag = !selectedTag || tags.includes(selectedTag.toLowerCase());
             
@@ -150,7 +152,7 @@ if ($selectedTag) {
     });
 
     
-            const filterBtn = document.querySelector('.filter-btn');
+    const filterBtn = document.querySelector('.filter-btn');
     const dropdownContent = document.querySelector('.dropdown-content');
 
     filterBtn.addEventListener('click', function(e) {

@@ -42,7 +42,6 @@ function getAllIngredients($pdo) {
         $stmt = $pdo->prepare($query);
         $stmt->execute();
         
-        // Return just the ingredient names as a simple array
         return $stmt->fetchAll(PDO::FETCH_COLUMN, 0);
     } catch (PDOException $e) {
         error_log("Ingredient fetch error: " . $e->getMessage());
@@ -80,9 +79,8 @@ function addFavoriteRecipe($pdo, $user_id, $recipe_id) {
         $stmt->execute([$user_id, $recipe_id]);
         return true;
     } catch (PDOException $e) {
-        // Check if it's a duplicate entry error
         if ($e->errorInfo[1] == 1062) {
-            return true; // Already favorited
+            return true; // already favorited
         }
         error_log("Error adding favorite: " . $e->getMessage());
         return false;

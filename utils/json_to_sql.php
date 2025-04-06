@@ -1,7 +1,8 @@
 <?php
 require_once '../dbconnect.php';
 
-$json = file_get_contents('dummy.json');
+$json = file_get_contents('dummy.json');  // replace with foodsDB.json, foodcategoies.json, etc
+// i put dummy.json for safetyreasons
 $recipes = json_decode($json, true);
 
 try {

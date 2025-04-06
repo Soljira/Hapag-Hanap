@@ -1,16 +1,13 @@
 <?php
-// Start session and prevent output
 ob_start();
 session_start();
 
 header('Content-Type: application/json');
 
-// Debug session (temporary)
 error_log('Session data: ' . print_r($_SESSION, true));
 
-// Strict session validation
 if (empty($_SESSION['user_id'])) {
-    http_response_code(401); // Unauthorized
+    http_response_code(401);
     die(json_encode(['success' => false, 'message' => 'Please login to favorite recipes']));
 }
 
